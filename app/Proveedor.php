@@ -14,6 +14,6 @@ class Proveedor extends Model
 
 
 	public function ingreso(){
-	    return $this-hasMany('App\Ingreso');
+	    return $this->hasMany('App\Ingreso');
 	}
 }

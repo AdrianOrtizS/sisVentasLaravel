@@ -19,7 +19,7 @@ class Venta extends Model
 
 
      public function detalleventa(){
-	    return $this-hasMany('App\DetalleVenta');
+	    return $this->hasMany('App\DetalleVenta');
 	 }
 
 

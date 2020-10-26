@@ -53,6 +53,38 @@ class ProductoController extends Controller
 
 
 
+    public function buscarproductotipo(Request $request)
+    {
+        $buscar   = $request->buscar;
+
+        if($buscar == ''){
+         $producto = Producto::join('tipoproducto','producto.idtipo','=','tipoproducto.id')
+                               ->select('producto.id','producto.nombre','producto.stock','producto.stockminimo',
+                                        'producto.foto','producto.condicion','producto.idtipo',
+                                        'producto.codigo', 'producto.precio','producto.iva', 
+                                        'tipoproducto.descripcion as tipo')
+                               ->where('producto.condicion','=','1')
+                               ->get();
+        }else{
+            $producto = Producto::join('tipoproducto','producto.idtipo','=','tipoproducto.id')
+                               ->select('producto.id','producto.nombre','producto.stock','producto.stockminimo',
+                                        'producto.foto','producto.condicion','producto.idtipo','producto.iva',
+                                        'producto.codigo','producto.precio', 'tipoproducto.descripcion as tipo')
+                               ->where('producto.nombre', 'like', '%'.$buscar.'%')
+                               ->orWhere('tipoproducto.descripcion', 'like', '%'.$buscar.'%')
+                               ->where('producto.condicion','=','1')
+                               ->get();
+        }
+        return response()->json([ 'code'      => 200,
+                                  'status'    => 'success',
+                                  'Producto' => $producto], 200);
+    } 
+
+
+
+
+
+
     public function buscarproductonombre(Request $request)
     {
         $buscar   = $request->buscar;

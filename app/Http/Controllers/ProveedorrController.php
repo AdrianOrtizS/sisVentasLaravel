@@ -12,16 +12,22 @@ class ProveedorrController extends Controller
     
     public function buscarproveedornombre(Request $request)
     {
+        
         $buscar   = $request->buscar;
+
 
         if($buscar == ''){
            $proveedor = Proveedor::where('proveedor.condicion','=','1')
-                               ->get();
+                                 ->take(10)
+                                 ->get();
         }else{
             $proveedor = Proveedor::where('proveedor.nombre', 'like', '%'.$buscar.'%')
                                ->where('proveedor.condicion','=','1')
+                               ->take(10)
                                ->get();
         }
+
+
         return response()->json([ 'code'      => 200,
                                   'status'    => 'success',
                                   'Proveedor' => $proveedor], 200);
@@ -47,6 +53,7 @@ class ProveedorrController extends Controller
             }
             return response()->json($data, $data['code']);
     }
+
 
 
 

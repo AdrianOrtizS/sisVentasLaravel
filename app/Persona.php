@@ -19,7 +19,7 @@ class Persona extends Model
 
 
  public function venta(){
-	    return $this-hasMany('App\Venta');
+	    return $this->hasMany('App\Venta');
 	}
 
 

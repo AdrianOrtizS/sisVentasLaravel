@@ -284,8 +284,6 @@ class UsuarioController extends Controller
     }
 
 
-
-
     /////////////////////
     /////////////////////
     ///////USER LOGUIN/
@@ -293,6 +291,62 @@ class UsuarioController extends Controller
     ///////JWTAUTH///////
     /////////////////////
     /////////////////////
+
+
+    public function register(Request $request)
+    {
+
+        $json = $request->input('json', null);
+        $params_array = json_decode($json, true);
+       
+       // limpiar datos    // $params_array = array_map('trim', $params_array);
+
+        if(!empty($params_array)){
+                $validate = \Validator::make($params_array,[
+                  'name'      => 'required',
+                  'surname'   => 'required',
+                  'email'     => 'required|email|unique:users',
+                  'role'      =>     'required',
+                  'identificador' => 'required|unique:users',
+                  'password'      => 'required'
+                ]);
+
+                if($validate->fails()){
+                $data = ['code' => 400,
+                         'status'=> 'error',
+                         'message' => 'Datos incorrectos, error',
+                         'errors'    =>  $validate->errors()];
+                }else{
+
+                    //cifrar contraseña
+                    $pwd = hash('sha256', $params_array['password']);
+
+
+                    $user = new User();
+                    $user->name         = $params_array['name'];
+                    $user->surname      = $params_array['surname'];
+                    //$user->description  = $params_array['description'];
+                    $user->email        = $params_array['email'];
+                    $user->role         = $params_array['role'];
+                    //$user->image        = $params_array['image'];
+                    $user->identificador  = $params_array['identificador'];
+                    $user->password     = $pwd;
+                    $user->condicion    = 1;
+                    $user->save();
+            
+                    $data = [ 'code'  =>200,
+                              'status'=>'success',
+                              'User'=>$user];
+                }
+        }else{
+                $data = [ 'code'  =>400,
+                          'status'=>'error',
+                          'message'=>'No hay datos'];
+        }
+        return response()->json($data, $data['code']);
+
+    }
+
 
     public function login(Request $request)
     {

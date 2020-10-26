@@ -1,11 +1,7 @@
 <?php
-
-
 Route::get('/', function () {
     return view('welcome');
 });
-
-
 
 
 
@@ -17,6 +13,8 @@ Route::post('/producto/image/upload','ProductoController@subirImagen');
 Route::get('/producto/image/get/{filename}','ProductoController@getImage');
 Route::get('/buscarproductonombre','ProductoController@buscarproductonombre');
 Route::get('/buscarproductocodigo','ProductoController@buscarproductocodigo');
+
+Route::get('/buscarproductotipo','ProductoController@buscarproductotipo');
 
 Route::get('/stockminimo','ProductoController@stockminimo');
 
@@ -32,8 +30,11 @@ Route::get('/buscarpersonacodigo','PersonaController@buscarpersonacodigo');
 Route::resource('/proveedor','ProveedorrController');
 Route::post('/proveedor/image/upload','ProveedorrController@subirImagen');
 Route::get('/proveedor/image/get/{filename}','ProveedorrController@getImage');
-Route::get('/buscarproveedornombre','ProveedorrController@buscarproveedornombre');
 Route::get('/buscarproveedorcodigo','ProveedorrController@buscarproveedorcodigo');
+
+Route::get('/buscarproveedornombre','ProveedorrController@buscarproveedornombre');
+
+
 
 
 Route::resource('/usuario','UsuarioController');
@@ -47,6 +48,7 @@ Route::put('/updateUserLog','UsuarioController@updateUserLog');
 Route::post('/uploadImage/update','UsuarioController@uploadImage');
 Route::get('/getImageUser/{filename}','UsuarioController@getImageUser');
 Route::put('/updatePassUserLog','UsuarioController@updatePassUserLog');
+Route::post('/register','UsuarioController@register');
 
 
 Route::resource('/configuracion','ConfiguracionController');
@@ -71,8 +73,14 @@ Route::get('/ventasPdf','VentaController@ventasPdf');
 Route::get('/dashboard','DashboardController');
 
 
-
 Route::get('/notifiuserunread','UsuarioController@userUnreadNotification');
 Route::get('/notifiusermarkAsread','UsuarioController@userReadNotification');
 
+
+
+Route::resource('/pedido','PedidoClienteController');
+Route::get('/buscarpedido','PedidoClienteController@buscaringreso');
+Route::get('/numeroingreso','PedidoClienteController@numIngreso');
+
+Route::get('/mispedidos','PedidoClienteController@misPedidos');
 

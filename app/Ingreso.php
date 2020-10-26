@@ -19,7 +19,7 @@ class Ingreso extends Model
 
 
      public function detalleingreso(){
-	    return $this-hasMany('App\DetalleIngreso');
+	    return $this->hasMany('App\DetalleIngreso');
 	 }
 
 

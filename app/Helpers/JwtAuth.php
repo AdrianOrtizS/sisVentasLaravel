@@ -40,8 +40,8 @@
 					'image'		=> $user->image,
 					'description'=>$user->description,
 					'iat' 		=> time(),
-					'exp' 		=> time()+(130)
-//					'exp' 		=> time()+(1*24*60*60)
+//					'exp' 		=> time()+(130)
+					'exp' 		=> time()+(3*24*60*60)
 				);
 				//encripta datos  jkjkjghghjg77676t76rr^%^%^YTYT&^%&^Y
 				$jwt 	 = JWT::encode($token, $this->key, 'HS256');
